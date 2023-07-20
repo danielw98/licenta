@@ -177,7 +177,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4967630137043700}
   m_Layer: 10
-  m_Name: TeslaTower_0
+  m_Name: TeslaTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

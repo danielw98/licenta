@@ -2,6 +2,9 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.XR.Interaction.Toolkit;
 
+/// <summary>
+/// Validator for tower ghosts while hovering over valid or invalid tiles
+/// </summary>
 public class TowerBuilderManager : MonoBehaviour
 {
     public Tilemap tilemap;
@@ -13,7 +16,7 @@ public class TowerBuilderManager : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
     }
 
-    public void HandleDrop(XRBaseInteractor interactor)
+    public void HandleDrop(XRBaseInteractor interactor) 
     {
         Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
         CellEntity hoveredCell = Map.Tiles[cellPosition.x, cellPosition.y];

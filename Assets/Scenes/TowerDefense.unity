@@ -488,8 +488,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 51979230}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.01, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 7.25, y: -0.01, z: 8.04}
+  m_LocalScale: {x: 1.6546247, y: 1.8132873, z: 1.8132873}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1784935808}
@@ -4176,6 +4176,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 477726290}
   m_CullTransparentMesh: 1
+--- !u!1 &486092484 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4236541288421854901, guid: 65aa44ee5dcde6a42b6b1700e54115c5, type: 3}
+  m_PrefabInstance: {fileID: 1641986663}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &488695413
 GameObject:
   m_ObjectHideFlags: 0
@@ -4503,6 +4508,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 1
   m_VerticalFit: 0
+--- !u!1 &506224314 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9164963433864166435, guid: 227c68f57100af04c8e506a2fa75bc82, type: 3}
+  m_PrefabInstance: {fileID: 1893823496}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &509246217
 GameObject:
   m_ObjectHideFlags: 0
@@ -6523,6 +6533,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 822719346}
   m_CullTransparentMesh: 1
+--- !u!1 &839430696 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4532872486133498332, guid: 801904fd574ab4f45956147bf838e698, type: 3}
+  m_PrefabInstance: {fileID: 1168751398}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &854775703
 GameObject:
   m_ObjectHideFlags: 0
@@ -7789,7 +7804,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9157297169567523062, guid: a9c549c6d6b4c504eb3c6afc20383a11, type: 3}
       propertyPath: m_Name
-      value: EmpTowerGhost_L01
+      value: EmpTowerGhost
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8235,15 +8250,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapHeight: 10
   mapWidth: 15
-  prefabEmpTowerGhost: {fileID: 9157297169567523062, guid: a9c549c6d6b4c504eb3c6afc20383a11, type: 3}
-  prefabLaserTowerGhost: {fileID: 4095016250163092711, guid: 1ff1e872f3dba4d4392b1c14369c4bbb, type: 3}
-  prefabMachineGunGhost: {fileID: 1146388286380071042, guid: ccda40a0ca9cbac4aa8f1cd75901af9a, type: 3}
-  prefabRockerGhost: {fileID: 4532872486133498332, guid: 801904fd574ab4f45956147bf838e698, type: 3}
-  prefabSuperGhost: {fileID: 9164963433864166435, guid: 227c68f57100af04c8e506a2fa75bc82, type: 3}
-  prefabTeslaGhost: {fileID: 4236541288421854901, guid: 65aa44ee5dcde6a42b6b1700e54115c5, type: 3}
+  prefabEmpTowerGhost: {fileID: 1236046143}
+  prefabLaserTowerGhost: {fileID: 2063031269}
+  prefabMachineGunGhost: {fileID: 2128577531}
+  prefabRockerGhost: {fileID: 839430696}
+  prefabSuperGhost: {fileID: 506224314}
+  prefabTeslaGhost: {fileID: 486092484}
+  prefabEmpTower: {fileID: 1018291631365572, guid: ec315e78452fd456db9e789f88989b97, type: 3}
+  prefabLaserTower: {fileID: 1161251386251526, guid: 6f6de38bc4946428ab2a1d468039753e, type: 3}
+  prefabMachineGun: {fileID: 1401014823036408, guid: 639c49a7820a549c5822f7b768abc5ac, type: 3}
+  prefabRocker: {fileID: 1361402013487122, guid: afd8cfe3809484aac81a3f4f39b80ca5, type: 3}
+  prefabSuper: {fileID: 1759168881962760, guid: 06f0112fbf82244059dd2f2738a29a93, type: 3}
+  prefabTesla: {fileID: 1330679506175634, guid: ae2c948b2373c4a01bf645a32b1ed505, type: 3}
+  regularEnemy: {fileID: 1018291631365572, guid: ec315e78452fd456db9e789f88989b97, type: 3}
+  flyEnemy: {fileID: 1161251386251526, guid: 6f6de38bc4946428ab2a1d468039753e, type: 3}
   prefabEntryGate: {fileID: 6759793911276255907, guid: 5e43de00a579f631ebc00783a13c0ff1, type: 3}
   prefabExitGate: {fileID: 2893840040831753630, guid: 81b3ec48381fe0312b1d0727c1407413, type: 3}
-  prefabRegularEnemy: {fileID: 7852760624191437353, guid: 0724b91bb766a032e81aab2602c0af65, type: 3}
   raycastReceiver: {fileID: 509246217}
   groundTileMap: {fileID: 2126658537}
   groundTiles:
@@ -9681,7 +9703,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4532872486133498332, guid: 801904fd574ab4f45956147bf838e698, type: 3}
       propertyPath: m_Name
-      value: RocketTowerGhost_L01
+      value: RocketTowerGhost
       objectReference: {fileID: 0}
     - target: {fileID: 6230004794968379545, guid: 801904fd574ab4f45956147bf838e698, type: 3}
       propertyPath: m_RootOrder
@@ -10474,6 +10496,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Renderer: {fileID: 1153277286}
   m_MaterialIndex: 0
+--- !u!1 &1236046143 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9157297169567523062, guid: a9c549c6d6b4c504eb3c6afc20383a11, type: 3}
+  m_PrefabInstance: {fileID: 1041484248}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1248479595
 GameObject:
   m_ObjectHideFlags: 0
@@ -12055,7 +12082,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1146388286380071042, guid: ccda40a0ca9cbac4aa8f1cd75901af9a, type: 3}
       propertyPath: m_Name
-      value: MachineGunGhost_L01
+      value: MachineGunGhost
       objectReference: {fileID: 0}
     - target: {fileID: 8847578682200973457, guid: ccda40a0ca9cbac4aa8f1cd75901af9a, type: 3}
       propertyPath: m_RootOrder
@@ -13077,7 +13104,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4236541288421854901, guid: 65aa44ee5dcde6a42b6b1700e54115c5, type: 3}
       propertyPath: m_Name
-      value: TeslaTowerGhost_L01
+      value: TeslaTowerGhost
       objectReference: {fileID: 0}
     - target: {fileID: 9014132348505448400, guid: 65aa44ee5dcde6a42b6b1700e54115c5, type: 3}
       propertyPath: m_RootOrder
@@ -13797,7 +13824,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4095016250163092711, guid: 1ff1e872f3dba4d4392b1c14369c4bbb, type: 3}
       propertyPath: m_Name
-      value: LaserTowerGhost_L01
+      value: LaserTowerGhost
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15490,7 +15517,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9164963433864166435, guid: 227c68f57100af04c8e506a2fa75bc82, type: 3}
       propertyPath: m_Name
-      value: SuperTowerGhost_L01
+      value: SuperTowerGhost
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16841,6 +16868,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2042902824}
   m_CullTransparentMesh: 1
+--- !u!1 &2063031269 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4095016250163092711, guid: 1ff1e872f3dba4d4392b1c14369c4bbb, type: 3}
+  m_PrefabInstance: {fileID: 1701236788}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2073779948
 GameObject:
   m_ObjectHideFlags: 0
@@ -17710,6 +17742,11 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &2128577531 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1146388286380071042, guid: ccda40a0ca9cbac4aa8f1cd75901af9a, type: 3}
+  m_PrefabInstance: {fileID: 1370500214}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2131789701
 GameObject:
   m_ObjectHideFlags: 0

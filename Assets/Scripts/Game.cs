@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Units.Enemies;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
@@ -15,18 +16,29 @@ public class Game : MonoBehaviour
     public GameObject prefabSuperGhost;
     public GameObject prefabTeslaGhost;
 
+    public GameObject prefabEmpTower;
+    public GameObject prefabLaserTower;
+    public GameObject prefabMachineGun;
+    public GameObject prefabRocker;
+    public GameObject prefabSuper;
+    public GameObject prefabTesla;
+
+    public GameObject regularEnemy;
+    public GameObject flyEnemy;
+
     public GameObject prefabEntryGate;
     public GameObject prefabExitGate;
-    public GameObject prefabRegularEnemy;
     public GameObject raycastReceiver;
-    public Tilemap groundTileMap;
-    public Tile[] groundTiles;
+    public Tilemap groundTileMap; // the "visual" ground
+    public Tile[] groundTiles; // array containing the availble tilemap sprites
     public Transform playerPlaneTransform;
     public Transform playerPlaneTeleportTransform;
 
     private Map map;
 
-    private Transform soldierTransform;
+    //private Transform soldierTransform;
+
+    private List<GameObject> enemies = new();
     
     /// <summary>
     /// Singleton
@@ -64,6 +76,14 @@ public class Game : MonoBehaviour
             {
                 Map.Tiles[x, y] = new CellEntity(x, y) { Id = (y * mapWidth) + x, HasBuilding = (y * mapWidth) + x % 5 == 0 };
                 groundTileMap.SetTile(new Vector3Int(x, (Map.Tiles.GetLength(1) - 1) - y, 0), groundTiles[0]);
+                
+                // TODO: remove in production, only used to test pathfinding!
+                if (x == 4)
+                {
+                    Map.Tiles[x, y].HasBuilding = true;
+                    if (y == 2)
+                        Map.Tiles[x, 2].HasBuilding = false;
+                }
             }
         }
         // position and scale the plane where the player can walk, it needs to be a little bigger than the ground tilemap itself, and slightly offset it on each edge (walkable edges)
@@ -82,13 +102,32 @@ public class Game : MonoBehaviour
         
         //Instantiate(prefabIceTower, new Vector3(-0.5f, 0.5f, -0.5f), Quaternion.identity);
         
-        soldierTransform = Instantiate(prefabRegularEnemy, new Vector3(mapWidth - 0.5f, 0.5f, mapHeight / 2 - 0.5f), Quaternion.identity).transform;
+        //soldierTransform = Instantiate(prefabRegularEnemy, new Vector3(mapWidth - 0.5f, 0.5f, mapHeight / 2 - 0.5f), Quaternion.identity).transform;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        soldierTransform.position = new Vector3(soldierTransform.position.x - 1 * Time.deltaTime, soldierTransform.position.y,
-            soldierTransform.position.z);
+        //soldierTransform.position = new Vector3(soldierTransform.position.x - 1 * Time.deltaTime, soldierTransform.position.y,
+        //    soldierTransform.position.z);
+        if (enemies.Count == 0)
+            StartCoroutine(SpawnEnemy());
+    }
+
+    public IEnumerator SpawnEnemy()
+    {
+        GameObject enemy = null;
+        
+        int enemyType = Random.Range(0, 2);
+        if (enemyType == 0)
+            enemy = regularEnemy;
+        else if (enemyType == 1)
+            enemy = flyEnemy;
+        for (float _count = 10; _count >= 0; _count--)
+        {
+            enemies.Add(Instantiate(enemy, new Vector3(0.5f, 0.5f, mapHeight / 2 - 0.5f), Quaternion.identity));
+            yield return new WaitForSeconds(1); // wait 1 second between enemy spawns
+        }
+
     }
 }
