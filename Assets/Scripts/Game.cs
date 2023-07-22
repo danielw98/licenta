@@ -23,8 +23,13 @@ public class Game : MonoBehaviour
     public GameObject prefabSuper;
     public GameObject prefabTesla;
 
-    public GameObject regularEnemy;
-    public GameObject flyEnemy;
+
+    public GameObject prefabHoverTank;
+    public GameObject prefabHoverCopter;
+    public GameObject prefabHoverBoss;
+    public GameObject prefabSuperHoverTank;
+    public GameObject prefabSuperHoverCopter;
+    public GameObject prefabSuperHoverBoss;
 
     public GameObject prefabEntryGate;
     public GameObject prefabExitGate;
@@ -34,12 +39,19 @@ public class Game : MonoBehaviour
     public Transform playerPlaneTransform;
     public Transform playerPlaneTeleportTransform;
 
-    private Map map;
+    public Map map;
 
     //private Transform soldierTransform;
+    [HideInInspector]
+    public List<GameObject> enemies = new();
+    [HideInInspector]
+    public List<GameObject> towers = new();
+    [HideInInspector]
+    public bool isGameOver;
+    [HideInInspector]
+    public bool isMapGenerated;
+    public int lives = 10;
 
-    private List<GameObject> enemies = new();
-    
     /// <summary>
     /// Singleton
     /// </summary>
@@ -74,18 +86,19 @@ public class Game : MonoBehaviour
         {
             for (int y = 0; y < mapHeight; y++)
             {
-                Map.Tiles[x, y] = new CellEntity(x, y) { Id = (y * mapWidth) + x, HasBuilding = (y * mapWidth) + x % 5 == 0 };
                 groundTileMap.SetTile(new Vector3Int(x, (Map.Tiles.GetLength(1) - 1) - y, 0), groundTiles[0]);
-                
-                // TODO: remove in production, only used to test pathfinding!
-                if (x == 4)
+                Map.Tiles[x, y] = new CellEntity(x, y) { Id = (y * mapWidth) + x };
+                if (x == 6)
                 {
                     Map.Tiles[x, y].HasBuilding = true;
                     if (y == 2)
-                        Map.Tiles[x, 2].HasBuilding = false;
+                        Map.Tiles[x, y].HasBuilding = false;
                 }
             }
         }
+        Map.Tiles[0, mapHeight / 2].IsEntry = true;
+        Map.Tiles[mapWidth - 1, mapHeight / 2].IsExit = true;
+        isMapGenerated = true;
         // position and scale the plane where the player can walk, it needs to be a little bigger than the ground tilemap itself, and slightly offset it on each edge (walkable edges)
         playerPlaneTransform.transform.localScale = new Vector3(groundTileMap.size.x / 10.0f + 0.2f, 1, groundTileMap.size.y / 10.0f + 0.2f);
         playerPlaneTransform.position = new Vector3(mapWidth / 2 + (mapWidth % 2 == 0 ? 0 : 0.5f), -0.01f, mapHeight / 2 + (mapHeight % 2 == 0 ? 0 : 0.5f));
@@ -118,15 +131,23 @@ public class Game : MonoBehaviour
     {
         GameObject enemy = null;
         
-        int enemyType = Random.Range(0, 2);
+        int enemyType = Random.Range(0, 6);
         if (enemyType == 0)
-            enemy = regularEnemy;
+            enemy = prefabHoverTank;
         else if (enemyType == 1)
-            enemy = flyEnemy;
-        for (float _count = 10; _count >= 0; _count--)
+            enemy = prefabHoverCopter;
+        else if (enemyType == 2)
+            enemy = prefabHoverBoss;
+        else if (enemyType == 3)
+            enemy = prefabSuperHoverTank;
+        else if (enemyType == 4)
+            enemy = prefabSuperHoverCopter;
+        else if (enemyType == 5)
+            enemy = prefabSuperHoverBoss;
+        for (int _count = 0; _count < 10; _count++)
         {
             enemies.Add(Instantiate(enemy, new Vector3(0.5f, 0.5f, mapHeight / 2 - 0.5f), Quaternion.identity));
-            yield return new WaitForSeconds(1); // wait 1 second between enemy spawns
+            yield return new WaitForSeconds(2); // wait 1 second between enemy spawns
         }
 
     }

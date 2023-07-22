@@ -22,16 +22,16 @@ public class Map
         {
             var adjacentTiles = new List<CellEntity>();
             if (tile.X > 0)
-                if (Tiles[tile.X - 1, tile.Y].IsPath)
+                if (!Tiles[tile.X - 1, tile.Y].HasBuilding)
                     adjacentTiles.Add(Tiles[tile.X - 1, tile.Y]);
             if (tile.X < Game.Instance.mapWidth - 1)
-                if (Tiles[tile.X + 1, tile.Y].IsPath)
+                if (!Tiles[tile.X + 1, tile.Y].HasBuilding)
                     adjacentTiles.Add(Tiles[tile.X + 1, tile.Y]);
             if (tile.Y > 0)
-                if (Tiles[tile.X, tile.Y - 1].IsPath)
+                if (!Tiles[tile.X, tile.Y - 1].HasBuilding)
                     adjacentTiles.Add(Tiles[tile.X, tile.Y - 1]);
             if (tile.Y < Game.Instance.mapHeight - 1)
-                if (Tiles[tile.X, tile.Y + 1].IsPath)
+                if (!Tiles[tile.X, tile.Y + 1].HasBuilding)
                     adjacentTiles.Add(Tiles[tile.X, tile.Y + 1]);
             return adjacentTiles;
         }
@@ -61,9 +61,9 @@ public class Map
     {
         if (Tiles.Length > 0)
             for (int x = 0; x <= Tiles.GetUpperBound(0); x++)
-            for (int y = 0; y <= Tiles.GetUpperBound(1); y++)
-                if ((int)position.x == x && (Game.Instance.mapHeight - 1) - (int)position.z == y)
-                    return Tiles[x, y];
+                for (int y = 0; y <= Tiles.GetUpperBound(1); y++)
+                    if ((int)position.x == x && (Game.Instance.mapHeight - 1) - (int)position.z == y)
+                        return Tiles[x, y];
         return null;
     }
 }

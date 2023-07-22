@@ -15,8 +15,8 @@ public class Pathfinding : MonoBehaviour
     public IEnumerator PathTimer()
     {
         isNewPathNeeded = false;
-        FindPath(Map.GetCellFromWorldPosition(new Vector3(0, Game.Instance.mapHeight / 2)), 
-                 Map.GetCellFromWorldPosition(new Vector3(Game.Instance.mapWidth, Game.Instance.mapHeight / 2)));
+        FindPath(Map.GetCellFromWorldPosition(new Vector3(0, 0, Game.Instance.mapHeight / 2 - 1)), 
+                 Map.GetCellFromWorldPosition(new Vector3(Game.Instance.mapWidth - 1, 0, Game.Instance.mapHeight / 2 - 1)));
         yield return new WaitForSeconds(0.5F);
     }
 
@@ -28,6 +28,8 @@ public class Pathfinding : MonoBehaviour
     /// <param name="endPosition">The B point of the path</param>
     public void FindPath(CellEntity startPosition, CellEntity endPosition)
     {
+        var fds = Map.Tiles.Length;
+
         var open = new List<CellEntity>(); // list containing tiles that can still be walked
         var closed = new HashSet<CellEntity>(); // list of tiles that were already walked
         open.Add(startPosition); 

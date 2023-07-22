@@ -10,26 +10,30 @@ public class TowerBuilderManager : MonoBehaviour
     public Tilemap tilemap;
     private LineRenderer lineRenderer;
     private bool isPlacementAllowed;
+    private Vector3 defaultPosition;
+    public GameObject towerPrefab;
 
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
+        defaultPosition = transform.position;
     }
 
     public void HandleDrop(XRBaseInteractor interactor) 
     {
         Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
         CellEntity hoveredCell = Map.Tiles[cellPosition.x, cellPosition.y];
-        if (hoveredCell.HasBuilding ) // TODO: || enemyIsBlocked)
-            transform.position = new Vector3(-0.5f, 0.13f, 0.5f);
-        else
+        // when the tower ghost is dropped over a valid tile, return it to its default position and create the real tower on the valid tile 
+        if (!hoveredCell.HasBuilding) // TODO: || enemyIsBlocked)
         {
-            transform.position = new Vector3(hoveredCell.X + 0.5f, hoveredCell.Y + 0.5f, transform.position.z);
-            
+            hoveredCell.HasBuilding = true;
+            Game.Instance.towers.Add(Instantiate(towerPrefab, new Vector3(hoveredCell.X + 0.5f, 0, hoveredCell.Y + 0.5f), Quaternion.identity));
         }
+        // return the ghost tower to the initial position
+        transform.position = defaultPosition;
         Debug.Log("Object was dropped");
-        // Add your drop handling code here
     } 
+
     private void Update()
     {
         // set the start point of the line to the object's position
