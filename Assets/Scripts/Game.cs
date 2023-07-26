@@ -88,7 +88,7 @@ public class Game : MonoBehaviour
             {
                 groundTileMap.SetTile(new Vector3Int(x, (Map.Tiles.GetLength(1) - 1) - y, 0), groundTiles[0]);
                 Map.Tiles[x, y] = new CellEntity(x, y) { Id = (y * mapWidth) + x };
-                if (x == 6)
+                if (x == 12)
                 {
                     Map.Tiles[x, y].HasBuilding = true;
                     if (y == 2)
@@ -110,8 +110,8 @@ public class Game : MonoBehaviour
         raycastReceiver.transform.localScale = new Vector3(groundTileMap.size.x / 10.0f, 1, groundTileMap.size.y / 10.0f);
         raycastReceiver.transform.position = new Vector3(mapWidth / 2 + (mapWidth % 2 == 0 ? 0 : 0.5f), 0.02f, mapHeight / 2 + (mapHeight % 2 == 0 ? 0 : 0.5f));
         // instantiate the gates for entry and exit
-        Instantiate(prefabEntryGate, new Vector3(0.5f, 0.5f, mapHeight / 2 - 0.5f), Quaternion.identity);
-        Instantiate(prefabExitGate, new Vector3(mapWidth - 0.5f, 0.5f, mapHeight / 2 - 0.5f), Quaternion.identity);
+        Instantiate(prefabEntryGate, new Vector3(0.5f, 0.5f, mapHeight / 2 + 0.5f), Quaternion.identity);
+        Instantiate(prefabExitGate, new Vector3(mapWidth - 0.5f, 0.5f, mapHeight / 2 + 0.5f), Quaternion.identity);
         
         //Instantiate(prefabIceTower, new Vector3(-0.5f, 0.5f, -0.5f), Quaternion.identity);
         
@@ -144,10 +144,10 @@ public class Game : MonoBehaviour
             enemy = prefabSuperHoverCopter;
         else if (enemyType == 5)
             enemy = prefabSuperHoverBoss;
-        for (int _count = 0; _count < 10; _count++)
+        for (int _count = 0; _count < 1; _count++)
         {
-            enemies.Add(Instantiate(enemy, new Vector3(0.5f, 0.5f, mapHeight / 2 - 0.5f), Quaternion.identity));
-            yield return new WaitForSeconds(2); // wait 1 second between enemy spawns
+            enemies.Add(Instantiate(enemy, new Vector3(0.5f, 0.5f, mapHeight / 2 + 0.5f), Quaternion.identity));
+            yield return new WaitForSeconds(2); // wait between enemy spawns
         }
 
     }

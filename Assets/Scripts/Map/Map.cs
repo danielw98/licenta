@@ -62,7 +62,7 @@ public class Map
         if (Tiles.Length > 0)
             for (int x = 0; x <= Tiles.GetUpperBound(0); x++)
                 for (int y = 0; y <= Tiles.GetUpperBound(1); y++)
-                    if ((int)position.x == x && (Game.Instance.mapHeight - 1) - (int)position.z == y)
+                    if ((int)position.x == x && (int)position.z == y) // if ((int)position.x == x && (Game.Instance.mapHeight - 1) - (int)position.z == y)
                         return Tiles[x, y];
         return null;
     }

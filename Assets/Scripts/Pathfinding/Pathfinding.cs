@@ -15,8 +15,9 @@ public class Pathfinding : MonoBehaviour
     public IEnumerator PathTimer()
     {
         isNewPathNeeded = false;
-        FindPath(Map.GetCellFromWorldPosition(new Vector3(0, 0, Game.Instance.mapHeight / 2 - 1)), 
-                 Map.GetCellFromWorldPosition(new Vector3(Game.Instance.mapWidth - 1, 0, Game.Instance.mapHeight / 2 - 1)));
+        FindPath(Map.GetCellFromWorldPosition(transform.position), // should the start be the gameobject's position itself, instead of entry gate??
+                 Map.GetCellFromWorldPosition(new Vector3(Game.Instance.mapWidth - 1, 0, Game.Instance.mapHeight / 2 + 0.5f)));
+       // TODO: disallow placement when path is not possible
         yield return new WaitForSeconds(0.5F);
     }
 
@@ -48,7 +49,7 @@ public class Pathfinding : MonoBehaviour
             }
             foreach (CellEntity neighbour in Map.GetAdjacentPathTiles(current)) // get the path tiles adjacent to this tile
             {
-                if (closed.Where(e => e.Id == neighbour.Id).Count() > 0) // if the current adjacent tile is in the list of walked tiles, skip it
+                if (closed.Any(e => e.Id == neighbour.Id)) // if the current adjacent tile is in the list of walked tiles, skip it
                     continue;
                 int newMovementCostToNeighbour = current.G + Map.GetDistance(current, neighbour); // get the movement cost to the adjacent path tile
                 if (newMovementCostToNeighbour < neighbour.G || !open.Contains(neighbour)) // if the movement cost is smaller than the G cost of the adjacent path tile, and the adjacent tile is not in the walkable list

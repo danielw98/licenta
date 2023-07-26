@@ -31,7 +31,9 @@ public class Enemy : Pathfinding
                 if (Path.Count > 0)
                 {
                     // set the target as the location of the tile next in path
-                    pathTarget = new Vector3(Path[currentPathCellIndex].X + 0.5f, .15f, Game.Instance.mapHeight - 1 - Path[currentPathCellIndex].Y + 0.5f);
+                    pathTarget = new Vector3(Path[currentPathCellIndex].X + 0.5f, .15f, Path[currentPathCellIndex].Y + 0.5f);
+                    Debug.Log(Path[currentPathCellIndex]);
+                    //pathTarget = new Vector3(Path[currentPathCellIndex].X + 0.5f, .15f, Game.Instance.mapHeight - 1 - Path[currentPathCellIndex].Y - 0.5f);
 
                     // get the direction from our current position to our target
                     Vector3 _direction = pathTarget - transform.position;
@@ -64,7 +66,8 @@ public class Enemy : Pathfinding
 
                     if (currentPathCellIndex == Path.Count) // if we reached end of path
                     {
-                       // if the first node is base, or if we reached base, it's time to die
+                        Game.Instance.enemies.Remove(gameObject);
+                        // if the first node is base, or if we reached base, it's time to die
                         Destroy(gameObject); // base reached
                         Game.Instance.lives--;
                         return;

@@ -20,6 +20,6 @@ public class CellEntity
 
     public override string ToString()
     {
-        return "X: " + X + ", Y: " + Y + ", IsEntry: " + IsEntry + ", IsExit: " + IsExit;
+        return "X: " + X + ", Y: " + Y + ", IsEntry: " + IsEntry + ", IsExit: " + IsExit + ", HasBuilding: " + HasBuilding;
     }
 }

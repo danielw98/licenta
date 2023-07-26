@@ -7643,7 +7643,7 @@ PrefabInstance:
     - target: {fileID: 8695078296685720100, guid: a9c549c6d6b4c504eb3c6afc20383a11, type: 3}
       propertyPath: towerPrefab
       value: 
-      objectReference: {fileID: 1018291631365572, guid: ec315e78452fd456db9e789f88989b97, type: 3}
+      objectReference: {fileID: 2780572352150302819, guid: ec315e78452fd456db9e789f88989b97, type: 3}
     - target: {fileID: 9157297169567523062, guid: a9c549c6d6b4c504eb3c6afc20383a11, type: 3}
       propertyPath: m_Name
       value: EmpTowerGhost
@@ -8098,7 +8098,7 @@ MonoBehaviour:
   prefabRockerGhost: {fileID: 839430696}
   prefabSuperGhost: {fileID: 506224314}
   prefabTeslaGhost: {fileID: 486092484}
-  prefabEmpTower: {fileID: 1018291631365572, guid: ec315e78452fd456db9e789f88989b97, type: 3}
+  prefabEmpTower: {fileID: 2780572352150302819, guid: ec315e78452fd456db9e789f88989b97, type: 3}
   prefabLaserTower: {fileID: 1161251386251526, guid: 6f6de38bc4946428ab2a1d468039753e, type: 3}
   prefabMachineGun: {fileID: 1401014823036408, guid: 639c49a7820a549c5822f7b768abc5ac, type: 3}
   prefabRocker: {fileID: 1361402013487122, guid: afd8cfe3809484aac81a3f4f39b80ca5, type: 3}
@@ -8116,6 +8116,7 @@ MonoBehaviour:
   groundTileMap: {fileID: 2126658537}
   groundTiles:
   - {fileID: 11400000, guid: ed31ed2b2510e1f4fa72baa20f56ca2e, type: 2}
+  - {fileID: 11400000, guid: 77adfcebb5bd1264d9f59ad26dd332e8, type: 2}
   playerPlaneTransform: {fileID: 51979231}
   playerPlaneTeleportTransform: {fileID: 1249617921}
   enemies: []
