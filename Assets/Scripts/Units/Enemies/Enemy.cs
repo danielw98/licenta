@@ -20,7 +20,7 @@ public class Enemy : Pathfinding
 
     private void Update()
     {
-        if (!Game.Instance.isGameOver && Game.Instance.isMapGenerated)
+        if (!Game.Instance.isGameOver && Game.Instance.isMapGenerated && !Game.Instance.isPaused)
         {
             //startRotation = Quaternion.Euler(m_enemyLocation);
             // if a new path is needed, get it

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Units.Enemies;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -39,6 +40,11 @@ public class Game : MonoBehaviour
     public Transform playerPlaneTransform;
     public Transform playerPlaneTeleportTransform;
 
+    public TextMeshProUGUI livesLabel;
+    public TextMeshProUGUI creditsLabel;
+    public TextMeshProUGUI currentWaveLabel;
+    public TextMeshProUGUI gamePauseToggleLabel;
+
     public Map map;
 
     //private Transform soldierTransform;
@@ -47,10 +53,16 @@ public class Game : MonoBehaviour
     [HideInInspector]
     public List<GameObject> towers = new();
     [HideInInspector]
+    private bool isStarted;
+    [HideInInspector]
+    public bool isPaused = true;
+    [HideInInspector]
     public bool isGameOver;
     [HideInInspector]
     public bool isMapGenerated;
     public int lives = 10;
+    public int currentWave = 0;
+    public int credit = 0;
 
     /// <summary>
     /// Singleton
@@ -72,8 +84,13 @@ public class Game : MonoBehaviour
             return game;
         }
     }
-    
-    // Start is called before the first frame update
+
+    public void ToggleGamePauseGame()
+    {
+        isPaused = !isPaused;
+        gamePauseToggleLabel.text = isPaused ? "Start" : "Pause";
+    }
+
     private void Start()
     {
         StopAllCoroutines();
@@ -112,10 +129,6 @@ public class Game : MonoBehaviour
         // instantiate the gates for entry and exit
         Instantiate(prefabEntryGate, new Vector3(0.5f, 0.5f, mapHeight / 2 + 0.5f), Quaternion.identity);
         Instantiate(prefabExitGate, new Vector3(mapWidth - 0.5f, 0.5f, mapHeight / 2 + 0.5f), Quaternion.identity);
-        
-        //Instantiate(prefabIceTower, new Vector3(-0.5f, 0.5f, -0.5f), Quaternion.identity);
-        
-        //soldierTransform = Instantiate(prefabRegularEnemy, new Vector3(mapWidth - 0.5f, 0.5f, mapHeight / 2 - 0.5f), Quaternion.identity).transform;
     }
 
     // Update is called once per frame
@@ -123,14 +136,20 @@ public class Game : MonoBehaviour
     {
         //soldierTransform.position = new Vector3(soldierTransform.position.x - 1 * Time.deltaTime, soldierTransform.position.y,
         //    soldierTransform.position.z);
-        if (enemies.Count == 0)
-            StartCoroutine(SpawnEnemy());
+        if (!isPaused)
+        {
+            livesLabel.text = lives.ToString();
+            creditsLabel.text = credit.ToString();
+            currentWaveLabel.text = currentWave.ToString();
+            if (enemies.Count == 0)
+                StartCoroutine(SpawnEnemy());
+        }
     }
 
     public IEnumerator SpawnEnemy()
     {
-        GameObject enemy = null;
-        
+        currentWave++;
+        GameObject enemy = null;        
         int enemyType = Random.Range(0, 6);
         if (enemyType == 0)
             enemy = prefabHoverTank;

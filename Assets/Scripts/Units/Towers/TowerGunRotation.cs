@@ -13,7 +13,7 @@ public class TowerGunRotation : Tower
     private void Update()
     {
         //Quaternion rotation = Quaternion.LookRotation(target.transform.position - _t.transform.position);
-        if (Game.Instance.enemies.Count > 0 && turret != null)
+        if (!Game.Instance.isPaused && Game.Instance.enemies.Count > 0 && turret != null)
         {
             Quaternion rotation = Quaternion.LookRotation(Game.Instance.enemies[0].transform.position - turret.transform.position);
             rotation.x = 0; //This is for limiting the rotation to the y axis. I needed this for my project so just

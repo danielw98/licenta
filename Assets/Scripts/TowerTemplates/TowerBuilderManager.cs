@@ -47,36 +47,38 @@ public class TowerBuilderManager : MonoBehaviour
     } 
 
     private void Update()
-    {      
-
-        // set the start point of the line to the object's position
-        lineRenderer.SetPosition(0, transform.position);
-        // set the end point of the line to the ground (y = 0)
-        lineRenderer.SetPosition(1, new Vector3(transform.position.x, 0, transform.position.z));
-        // perform a raycast from the object downwards
-        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit))
+    {
+        if (!Game.Instance.isGameOver)
         {
-            // if the raycast hits the buildable area, check if the tile is buildable
-            if (hit.collider.gameObject.CompareTag("BuildableArea"))
+            // set the start point of the line to the object's position
+            lineRenderer.SetPosition(0, transform.position);
+            // set the end point of the line to the ground (y = 0)
+            lineRenderer.SetPosition(1, new Vector3(transform.position.x, 0, transform.position.z));
+            // perform a raycast from the object downwards
+            if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit))
             {
-                // Check if the "m" key is pressed
-                if (Keyboard.current.mKey.wasPressedThisFrame)
-                    HandleDrop(null);
+                // if the raycast hits the buildable area, check if the tile is buildable
+                if (hit.collider.gameObject.CompareTag("BuildableArea"))
+                {
+                    // Check if the "m" key is pressed
+                    if (Keyboard.current.mKey.wasPressedThisFrame)
+                        HandleDrop(null);
 
 
-                Vector3Int cellPosition = tilemap.WorldToCell(hit.point);
-                //Debug.Log(Map.Tiles[cellPosition.x, cellPosition.y]);
-                isPlacementAllowed = !Map.Tiles[cellPosition.x, cellPosition.y].HasBuilding;
+                    Vector3Int cellPosition = tilemap.WorldToCell(hit.point);
+                    //Debug.Log(Map.Tiles[cellPosition.x, cellPosition.y]);
+                    isPlacementAllowed = !Map.Tiles[cellPosition.x, cellPosition.y].HasBuilding;
+                }
+                else
+                    isPlacementAllowed = false;
             }
             else
                 isPlacementAllowed = false;
+            // change the color of the line based on whether placement is allowed
+            if (isPlacementAllowed)
+                lineRenderer.material.color = Color.green;
+            else
+                lineRenderer.material.color = Color.red;
         }
-        else
-            isPlacementAllowed = false;
-        // change the color of the line based on whether placement is allowed
-        if (isPlacementAllowed)
-            lineRenderer.material.color = Color.green;
-        else
-            lineRenderer.material.color = Color.red;
     }
 }
