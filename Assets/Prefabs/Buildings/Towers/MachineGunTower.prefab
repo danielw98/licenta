@@ -9682,8 +9682,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4795219791600268}
   - component: {fileID: -2098432122961600977}
-  - component: {fileID: 6903663310068387419}
   - component: {fileID: -4258979370988145790}
+  - component: {fileID: 6321201933835083921}
   m_Layer: 10
   m_Name: MachineGunTower
   m_TagString: Untagged
@@ -9804,25 +9804,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &6903663310068387419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1401014823036408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b6f2d29aa82bf34fa013d1324a75b34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  range: 5
-  turnSpeed: 3
-  fireRate: 10
-  damage: 0.1
-  cost: 10
-  upgradeLevel: 1
-  turret: {fileID: 1589316105556366}
 --- !u!114 &-4258979370988145790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9835,12 +9816,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da16bb3e3b6a74a4da3942650c3be4b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemiesInRange: []
   range: 10
   turnSpeed: 1
   fireRate: 0.5
   damage: 1
+  sellCost: 0
+  turret: {fileID: 1589316105556366}
+  bulletPrefab: {fileID: 2731949007449628550, guid: 76d4f2722d349b24a9af3186c5c214e3, type: 3}
   cost: 10
   upgradeLevel: 1
+--- !u!135 &6321201933835083921
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401014823036408}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1405071060733274
 GameObject:
   m_ObjectHideFlags: 0
@@ -19426,7 +19432,7 @@ GameObject:
   - component: {fileID: 23411862511571598}
   m_Layer: 10
   m_Name: Turret_MachineGun_L01
-  m_TagString: Untagged
+  m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19445,6 +19451,7 @@ Transform:
   m_Children:
   - {fileID: 4104818651648934}
   - {fileID: 4298214072847346}
+  - {fileID: 627135409361965477}
   m_Father: {fileID: 4795219791600268}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -34147,3 +34154,34 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &4867285985130891563
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 627135409361965477}
+  m_Layer: 10
+  m_Name: GunBarrelPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &627135409361965477
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867285985130891563}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.14690632, z: 1.1545055}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4877050138446582}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

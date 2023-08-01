@@ -63,6 +63,8 @@ public class Game : MonoBehaviour
     public int lives = 10;
     public int currentWave = 0;
     public int credit = 0;
+    public int enemyHealthMultiplier = 0;
+    public int enemyBonusMultiplier = 0;
 
     /// <summary>
     /// Singleton
@@ -105,12 +107,12 @@ public class Game : MonoBehaviour
             {
                 groundTileMap.SetTile(new Vector3Int(x, (Map.Tiles.GetLength(1) - 1) - y, 0), groundTiles[0]);
                 Map.Tiles[x, y] = new CellEntity(x, y) { Id = (y * mapWidth) + x };
-                if (x == 12)
-                {
-                    Map.Tiles[x, y].HasBuilding = true;
-                    if (y == 2)
-                        Map.Tiles[x, y].HasBuilding = false;
-                }
+                //if (x == 12)
+                //{
+                //    Map.Tiles[x, y].HasBuilding = true;
+                //    if (y == 2)
+                //        Map.Tiles[x, y].HasBuilding = false;
+                //}
             }
         }
         Map.Tiles[0, mapHeight / 2].IsEntry = true;
@@ -127,8 +129,8 @@ public class Game : MonoBehaviour
         raycastReceiver.transform.localScale = new Vector3(groundTileMap.size.x / 10.0f, 1, groundTileMap.size.y / 10.0f);
         raycastReceiver.transform.position = new Vector3(mapWidth / 2 + (mapWidth % 2 == 0 ? 0 : 0.5f), 0.02f, mapHeight / 2 + (mapHeight % 2 == 0 ? 0 : 0.5f));
         // instantiate the gates for entry and exit
-        Instantiate(prefabEntryGate, new Vector3(0.5f, 0.5f, mapHeight / 2 + 0.5f), Quaternion.identity);
-        Instantiate(prefabExitGate, new Vector3(mapWidth - 0.5f, 0.5f, mapHeight / 2 + 0.5f), Quaternion.identity);
+        Instantiate(prefabEntryGate, new Vector3(0.5f, 0.01f, mapHeight / 2 + 0.5f), Quaternion.identity);
+        Instantiate(prefabExitGate, new Vector3(mapWidth - 0.5f, 0.0f, mapHeight / 2 + 0.5f), Quaternion.identity);
     }
 
     // Update is called once per frame
@@ -149,6 +151,8 @@ public class Game : MonoBehaviour
     public IEnumerator SpawnEnemy()
     {
         currentWave++;
+        enemyHealthMultiplier += 55;
+        enemyBonusMultiplier += 1;
         GameObject enemy = null;        
         int enemyType = Random.Range(0, 6);
         if (enemyType == 0)

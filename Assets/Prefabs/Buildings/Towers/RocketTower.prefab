@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23922229023592226}
   m_Layer: 10
   m_Name: Turret_RocketTower_L01
-  m_TagString: Untagged
+  m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,6 +32,7 @@ Transform:
   m_Children:
   - {fileID: 4309134107868596}
   - {fileID: 4357798972921266}
+  - {fileID: 5012404881071174286}
   m_Father: {fileID: 4182109551995616}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -95,8 +96,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4182109551995616}
   - component: {fileID: 3862437258767177373}
-  - component: {fileID: 2729742623978419071}
   - component: {fileID: 2726589194593057677}
+  - component: {fileID: 3490351713070775515}
   m_Layer: 10
   m_Name: RocketTower
   m_TagString: Untagged
@@ -116,8 +117,8 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4974969529068622}
   - {fileID: 4641205055848048}
+  - {fileID: 4974969529068622}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -217,25 +218,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2729742623978419071
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1361402013487122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b6f2d29aa82bf34fa013d1324a75b34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  range: 12
-  turnSpeed: 0.8
-  fireRate: 0.5
-  damage: 5
-  cost: 20
-  upgradeLevel: 1
-  turret: {fileID: 1060257738729188}
 --- !u!114 &2726589194593057677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,12 +230,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da16bb3e3b6a74a4da3942650c3be4b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemiesInRange: []
   range: 10
   turnSpeed: 1
   fireRate: 0.5
   damage: 1
+  sellCost: 0
+  turret: {fileID: 1060257738729188}
+  bulletPrefab: {fileID: 2731949007449628550, guid: 76d4f2722d349b24a9af3186c5c214e3, type: 3}
   cost: 10
   upgradeLevel: 1
+--- !u!135 &3490351713070775515
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361402013487122}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1515290547419108
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,3 +542,34 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &4991815578975083137
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5012404881071174286}
+  m_Layer: 10
+  m_Name: GunBarrelPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5012404881071174286
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4991815578975083137}
+  m_LocalRotation: {x: -0.0031379692, y: -0.0064551267, z: 0.0012619374, w: 0.9999735}
+  m_LocalPosition: {x: 0.008551328, y: 0.29697227, z: -0.0015066646}
+  m_LocalScale: {x: 0.44916028, y: 0.44916028, z: 0.44916028}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4641205055848048}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

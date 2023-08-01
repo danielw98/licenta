@@ -36,14 +36,11 @@ public class TowerBuilderManager : MonoBehaviour
             Game.Instance.groundTileMap.SetTile(new Vector3Int(cellPosition.x, cellPosition.y, 0), Game.Instance.groundTiles[1]);
 
             // make all enemie re-evaluate their pathing when the walkable tiles change upon a tower drop
-            var a = GameObject.FindGameObjectsWithTag("Enemy");
             foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
                 enemy.GetComponent<Enemy>().isNewPathNeeded = true;
         }
         // return the ghost tower to the initial position
         transform.position = defaultPosition;
-
-        Debug.Log("Object was dropped");
     } 
 
     private void Update()

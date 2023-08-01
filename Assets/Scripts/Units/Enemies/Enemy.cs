@@ -25,7 +25,10 @@ public class Enemy : Pathfinding
             //startRotation = Quaternion.Euler(m_enemyLocation);
             // if a new path is needed, get it
             if (isNewPathNeeded)
+            {
+                currentPathCellIndex = 0;
                 StartCoroutine(PathTimer());
+            }
             else
             {
                 if (Path.Count > 0)
@@ -94,5 +97,10 @@ public class Enemy : Pathfinding
             // inspector causes enemy units to get stuck at path nodes.
             newDirection = rotation.eulerAngles;
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        GetComponentInChildren<Health>().ModifyHealth(damage);
     }
 }

@@ -8,6 +8,8 @@ TagManager:
   - BuildableArea
   - TeleportArea
   - Enemy
+  - Base
+  - Gun
   layers:
   - Default
   - TransparentFX
