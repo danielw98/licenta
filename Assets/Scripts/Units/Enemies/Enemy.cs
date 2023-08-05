@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Enemy : Pathfinding
 {
@@ -12,10 +14,17 @@ public class Enemy : Pathfinding
     private float nodeDistance;
     private Vector3 newDirection;
     public float speed = 0.5f;
+    [SerializeField]
+    private int creditsBonus;
 
     public void HandlePathChanged()
     {
         isNewPathNeeded = true;
+    }
+
+    private void OnEnable()
+    {
+        creditsBonus += Game.Instance.enemyBonusMultiplier;
     }
 
     private void Update()
@@ -77,8 +86,8 @@ public class Enemy : Pathfinding
                     }
                 }
             }
-            //if (GetComponentInChildren<Health>().m_currentHealth <= 0)
-            //    Destroy();
+            if (GetComponentInChildren<Health>().currentHealth <= 0)
+                Destroy();
         }
     }
 
@@ -102,5 +111,14 @@ public class Enemy : Pathfinding
     public void TakeDamage(float damage)
     {
         GetComponentInChildren<Health>().ModifyHealth(damage);
+    }
+
+    public void Destroy()
+    {
+        // todo: play destroy animation
+        Destroy(gameObject);
+        Game.Instance.enemies.Remove(gameObject);
+        // enemy has been destroyed, add the bonus to the global credits
+        Game.Instance.credit += creditsBonus;
     }
 }

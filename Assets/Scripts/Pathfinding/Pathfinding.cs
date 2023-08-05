@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,37 +30,42 @@ public class Pathfinding : MonoBehaviour
     /// <param name="endPosition">The B point of the path</param>
     public void FindPath(CellEntity startPosition, CellEntity endPosition)
     {
-        var fds = Map.Tiles.Length;
-
-        var open = new List<CellEntity>(); // list containing tiles that can still be walked
-        var closed = new HashSet<CellEntity>(); // list of tiles that were already walked
-        open.Add(startPosition); 
-        while (open.Count > 0) // if we still have tiles that can be walked
+        if (startPosition != null && endPosition != null)
         {
-            CellEntity current = open[0];
-            for (int i = 0; i < open.Count(); i++) // if the current F cost is lower or equal to iterated tile cost, and iterated tile H cost is lower than current tile H cost, advance to iterated tile
-                if (open[i].F < current.F || open[i].F == current.F && open[i].H < current.H)
-                    current = open[i];
-            open.Remove(current); // remove current tile from walkable list and add it to walked list
-            closed.Add(current);
-            if (current == endPosition) // if we reached destination, retrace backwards the path from our current location to the origin point
+            var open = new List<CellEntity>(); // list containing tiles that can still be walked
+            var closed = new HashSet<CellEntity>(); // list of tiles that were already walked
+            open.Add(startPosition);
+            while (open.Count > 0) // if we still have tiles that can be walked
             {
-                Path = RetracePath(startPosition, endPosition);
-                return;
-            }
-            foreach (CellEntity neighbour in Map.GetAdjacentPathTiles(current)) // get the path tiles adjacent to this tile
-            {
-                if (closed.Any(e => e.Id == neighbour.Id)) // if the current adjacent tile is in the list of walked tiles, skip it
-                    continue;
-                int newMovementCostToNeighbour = current.G + Map.GetDistance(current, neighbour); // get the movement cost to the adjacent path tile
-                if (newMovementCostToNeighbour < neighbour.G || !open.Contains(neighbour)) // if the movement cost is smaller than the G cost of the adjacent path tile, and the adjacent tile is not in the walkable list
+                try
                 {
-                    neighbour.G = newMovementCostToNeighbour; // update the G cost of the neighbor path tile
-                    neighbour.H = Map.GetDistance(neighbour, endPosition); // set the H cost too
-                    neighbour.Parent = current; // set this tile as the parent of the adjacent path tile, so we can retrace the path to origin point, when we find the path
-                    if (!open.Contains(neighbour)) // if walkable tiles list doesn't contain adjacent path tile, add it
-                        open.Add(neighbour);
+                    CellEntity current = open[0];
+                    for (int i = 0; i < open.Count(); i++) // if the current F cost is lower or equal to iterated tile cost, and iterated tile H cost is lower than current tile H cost, advance to iterated tile
+                        if (open[i].F < current.F || open[i].F == current.F && open[i].H < current.H)
+                            current = open[i];
+                    open.Remove(current); // remove current tile from walkable list and add it to walked list
+                    closed.Add(current);
+                    if (current == endPosition) // if we reached destination, retrace backwards the path from our current location to the origin point
+                    {
+                        Path = RetracePath(startPosition, endPosition);
+                        return;
+                    }
+                    foreach (CellEntity neighbour in Map.GetAdjacentPathTiles(current)) // get the path tiles adjacent to this tile
+                    {
+                        if (closed.Any(e => e.Id == neighbour.Id)) // if the current adjacent tile is in the list of walked tiles, skip it
+                            continue;
+                        int newMovementCostToNeighbour = current.G + Map.GetDistance(current, neighbour); // get the movement cost to the adjacent path tile
+                        if (newMovementCostToNeighbour < neighbour.G || !open.Contains(neighbour)) // if the movement cost is smaller than the G cost of the adjacent path tile, and the adjacent tile is not in the walkable list
+                        {
+                            neighbour.G = newMovementCostToNeighbour; // update the G cost of the neighbor path tile
+                            neighbour.H = Map.GetDistance(neighbour, endPosition); // set the H cost too
+                            neighbour.Parent = current; // set this tile as the parent of the adjacent path tile, so we can retrace the path to origin point, when we find the path
+                            if (!open.Contains(neighbour)) // if walkable tiles list doesn't contain adjacent path tile, add it
+                                open.Add(neighbour);
+                        }
+                    }
                 }
+                catch { }
             }
         }
     }

@@ -5,8 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
-using static UnityEditor.PlayerSettings;
-using static UnityEngine.GraphicsBuffer;
 
 public class Tower : MonoBehaviour
 {
@@ -19,6 +17,7 @@ public class Tower : MonoBehaviour
     public float sellCost;
     private float lastShotTime;
     public GameObject turret;
+    public AudioSource audioFire;
 
     public GameObject bulletPrefab;
 
@@ -59,13 +58,14 @@ public class Tower : MonoBehaviour
                 foreach (Transform childTransform in transform.transform)
                     if (childTransform.name == "GunBarrelPoint")
                         startPosition = childTransform.transform.position;
-        Vector3 targetPosition = collider.transform.position;
+        //Vector3 targetPosition = new Vector3(collider.transform.position.x, collider.bounds.center.y , collider.transform.position.z);
         GameObject newBullet = Instantiate(bulletPrefab);
+        audioFire.Play();
         newBullet.transform.position = startPosition;
         BulletBehavior bulletComp = newBullet.GetComponent<BulletBehavior>();
         bulletComp.target = collider.gameObject;
         bulletComp.startPosition = startPosition;
-        bulletComp.targetPosition = targetPosition;
+        bulletComp.targetPosition = collider.bounds.center;
 
         //Animator animator = monsterData.CurrentLevel.visualization.GetComponent<Animator>();
         //animator.SetTrigger("fireShot");
@@ -75,25 +75,37 @@ public class Tower : MonoBehaviour
 
     void Update()
     {
-        if (!Game.Instance.isPaused & !Game.Instance.isGameOver)
+        if (enemiesInRange?.Count > 0)
         {
-            sellCost = (cost / 100f) * 75f;
-            if (enemiesInRange?.Count > 0)
-            {      
-                if (Time.time - lastShotTime > fireRate)
+            var target = enemiesInRange[0];
+            if (target != null)
+            {
+                if (target.TryGetComponent<Collider>(out var targetCollider))
                 {
-                    Attack(enemiesInRange[0].GetComponent<Collider>());
-                    lastShotTime = Time.time;
+                    if (!Game.Instance.isPaused & !Game.Instance.isGameOver)
+                    {
+                        sellCost = (cost / 100f) * 75f;
+                        if (Time.time - lastShotTime > fireRate)
+                        {
+                            Attack(targetCollider);
+                            lastShotTime = Time.time;
+                        }
+                    }
+                    // only rotate if enemies in range
+                    if (!Game.Instance.isPaused && turret != null)
+                    {
+                        Quaternion rotation = Quaternion.LookRotation(targetCollider.bounds.center - turret.transform.position);
+                        rotation.x = 0;
+                        //rotation.z = 0;
+                        turret.transform.rotation = Quaternion.Slerp(turret.transform.rotation, rotation, turnSpeed * Time.deltaTime);
+                    }
                 }
             }
-        }
-        // only rotate if enemies in range
-        if (!Game.Instance.isPaused && GetComponent<Tower>().enemiesInRange.Count > 0 && turret != null)
-        {
-            Quaternion rotation = Quaternion.LookRotation(GetComponent<Tower>().enemiesInRange[0].transform.position - turret.transform.position);
-            rotation.x = 0;
-            rotation.z = 0;
-            turret.transform.rotation = Quaternion.Slerp(turret.transform.rotation, rotation, turnSpeed * Time.deltaTime);
+            else
+            {
+                enemiesInRange.Remove(target);
+                //Game.Instance.enemies.Remove(target);
+            }
         }
     }
 }

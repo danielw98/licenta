@@ -9,7 +9,7 @@ public class HealthBar : MonoBehaviour
     [SerializeField]
     private Image foregroundImage;
     [SerializeField]
-    private float m_updateSpeedSeconds = 0.2f;
+    private float updateSpeedSeconds = 0.2f;
 
     private void Awake()
     {
@@ -26,17 +26,17 @@ public class HealthBar : MonoBehaviour
         float preChangePercentage = foregroundImage.fillAmount;
         float elapsed = 0f;
 
-        while (elapsed < m_updateSpeedSeconds)
+        while (elapsed < updateSpeedSeconds)
         {
             elapsed += Time.deltaTime;
-            foregroundImage.fillAmount = Mathf.Lerp(preChangePercentage, percentage, elapsed / m_updateSpeedSeconds);
+            foregroundImage.fillAmount = Mathf.Lerp(preChangePercentage, percentage, elapsed / updateSpeedSeconds);
         }
         foregroundImage.fillAmount = percentage;
     }
 
     private void LateUpdate()
     {
-        //transform.LookAt(new Vector3(transform.position.x, Game.Instance.mainCamera.transform.position.y, transform.position.z));
-        //transform.Rotate(90, 0, 0);
+        transform.LookAt(new Vector3(transform.position.x, Camera.main.transform.position.y, transform.position.z));
+        transform.Rotate(90, 0, 0);
     }
 }

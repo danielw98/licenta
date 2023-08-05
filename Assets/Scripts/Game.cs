@@ -89,12 +89,16 @@ public class Game : MonoBehaviour
 
     public void ToggleGamePauseGame()
     {
+        if (!isStarted)
+            AudioManager.Instance.PlayMusic(AudioManager.Instance.gameMusic);
+        isStarted = true;
         isPaused = !isPaused;
         gamePauseToggleLabel.text = isPaused ? "Start" : "Pause";
     }
 
     private void Start()
     {
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.menuMusic);
         StopAllCoroutines();
         map = new Map();
         Map.Tiles = new CellEntity[mapWidth, mapHeight];
