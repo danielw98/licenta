@@ -27,17 +27,20 @@ public class TowerBuilderManager : MonoBehaviour
         // when the tower ghost is dropped over a valid tile, return it to its default position and create the real tower on the valid tile 
         if (!hoveredCell.HasBuilding) // TODO: || enemyIsBlocked)
         {
-            //Map.Tiles[cellPosition.x, cellPosition.y].HasBuilding = true;
-            Map.Tiles[cellPosition.x, cellPosition.y].HasBuilding = true;
-            Game.Instance.towers.Add(Instantiate(towerPrefab, new Vector3(hoveredCell.X + 0.5f, 0, hoveredCell.Y + 0.5f), Quaternion.identity));
-            Game.Instance.towers[^1].GetComponent<AudioSource>().clip = Resources.Load("Audio/UsedSounds/tower_place2") as AudioClip;
-            Game.Instance.towers[^1].GetComponent<AudioSource>().Play();
+            if (Game.Instance.credit >= towerPrefab.GetComponent<Tower>().cost)
+            {
+                Map.Tiles[cellPosition.x, cellPosition.y].HasBuilding = true;
+                Game.Instance.towers.Add(Instantiate(towerPrefab, new Vector3(hoveredCell.X + 0.5f, 0, hoveredCell.Y + 0.5f), Quaternion.identity));
+                Game.Instance.towers[^1].GetComponent<AudioSource>().clip = Resources.Load("Audio/UsedSounds/tower_place2") as AudioClip;
+                Game.Instance.towers[^1].GetComponent<AudioSource>().Play();
 
-            Game.Instance.groundTileMap.SetTile(new Vector3Int(cellPosition.x, cellPosition.y, 0), Game.Instance.groundTiles[1]);
+                Game.Instance.groundTileMap.SetTile(new Vector3Int(cellPosition.x, cellPosition.y, 0), Game.Instance.groundTiles[1]);
+                Game.Instance.credit -= (int)towerPrefab.GetComponent<Tower>().cost;
+                // make all enemie re-evaluate their pathing when the walkable tiles change upon a tower drop
+                foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+                    enemy.GetComponent<Enemy>().isNewPathNeeded = true;
+            }
 
-            // make all enemie re-evaluate their pathing when the walkable tiles change upon a tower drop
-            foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
-                enemy.GetComponent<Enemy>().isNewPathNeeded = true;
         }
         // return the ghost tower to the initial position
         transform.position = defaultPosition;

@@ -14586,6 +14586,7 @@ GameObject:
   - component: {fileID: 8330976689117211873}
   - component: {fileID: 5385534702033821313}
   - component: {fileID: 4767330201287241122}
+  - component: {fileID: 3428775290189068085}
   - component: {fileID: 4648805524275211649}
   - component: {fileID: 7401767833334813064}
   m_Layer: 10
@@ -14726,6 +14727,22 @@ MonoBehaviour:
   fireRate: 0.3
   damage: 0.1
   sellCost: 0
+  turret: {fileID: 6508404696039085379}
+  bulletPrefab: {fileID: 2731949007449628550, guid: 76d4f2722d349b24a9af3186c5c214e3, type: 3}
+  cost: 10
+  upgradeLevel: 1
+--- !u!114 &3428775290189068085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3201297442777137160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 258759a3e7938e344838319c2da35f1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   turret: {fileID: 6508404696039085379}
   audioFire: {fileID: 7401767833334813064}
   bulletPrefab: {fileID: 2731949007449628550, guid: 76d4f2722d349b24a9af3186c5c214e3, type: 3}

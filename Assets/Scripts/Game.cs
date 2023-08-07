@@ -111,12 +111,6 @@ public class Game : MonoBehaviour
             {
                 groundTileMap.SetTile(new Vector3Int(x, (Map.Tiles.GetLength(1) - 1) - y, 0), groundTiles[0]);
                 Map.Tiles[x, y] = new CellEntity(x, y) { Id = (y * mapWidth) + x };
-                //if (x == 12)
-                //{
-                //    Map.Tiles[x, y].HasBuilding = true;
-                //    if (y == 2)
-                //        Map.Tiles[x, y].HasBuilding = false;
-                //}
             }
         }
         Map.Tiles[0, mapHeight / 2].IsEntry = true;
